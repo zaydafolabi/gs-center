@@ -16,19 +16,18 @@ export const CartProvider = ({ children }) => {
 
     // Check login status
     useEffect(() => {
-        const savedUser = localStorage.getItem('gs_user');
-        if (savedUser) {
-            try {
-                const user = JSON.parse(savedUser);
-                setIsLoggedIn(true);
-                setUserId(user.id);
-                // Load user's cart from database
-                loadUserCart(user.id);
-            } catch (e) {
-                console.error('Error parsing user:', e);
-            }
+    const savedUser = localStorage.getItem('gs_user');
+    if (savedUser) {
+        try {
+            const user = JSON.parse(savedUser);
+            setIsLoggedIn(true);
+            setUserId(user.id);
+            loadUserCart(user.id);
+        } catch (e) {
+            console.error('Error parsing user:', e);
         }
-    }, []);
+    }
+    }, [loadUserCart]);  
 
     // Load user's cart from database
     const loadUserCart = async (userId) => {
