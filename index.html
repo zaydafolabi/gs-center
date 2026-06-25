@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS Center - Wellness & Traditional Medicine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============================================
+           CSS VARIABLES & RESET
+           ============================================ */
+        :root {
+            --primary: #1a3c5e;
+            --primary-light: #2a5a7a;
+            --primary-dark: #0f2a42;
+            --secondary: #e8b931;
+            --secondary-light: #f5d95e;
+            --accent: #4ecdc4;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+            --gray: #636e72;
+            --gray-light: #dfe6e9;
+            --white: #ffffff;
+            --shadow: 0 10px 40px rgba(0,0,0,0.08);
+            --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           SCROLLBAR STYLING
+           ============================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--gray-light);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+
+        /* ============================================
+           CONTAINER
+           ============================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================
+           HEADER / NAVBAR
+           ============================================ */
+        .header {
+            background: var(--white);
+            padding: 16px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.95);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-greeting {
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .user-greeting i {
+            color: var(--secondary);
+            margin-right: 6px;
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(26, 60, 94, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 60, 94, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(232, 185, 49, 0.3);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(232, 185, 49, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-logout {
+            background: var(--gray-light);
+            color: var(--dark);
+        }
+        .btn-logout:hover {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 12px;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 60px 0 80px;
+            border-radius: 0 0 40px 40px;
+            color: var(--white);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(232, 185, 49, 0.1), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(78, 205, 196, 0.08), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .hero-text h1 span {
+            color: var(--secondary);
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 24px;
+            max-width: 500px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 32px;
+        }
+
+        .hero-stat h3 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+
+        .hero-stat p {
+            font-size: 14px;
+            opacity: 0.7;
+            margin: 0;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-placeholder {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--radius);
+            border: 2px dashed rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: rgba(255,255,255,0.2);
+        }
+
+        /* ============================================
+           CARDS & SECTIONS
+           ============================================ */
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-4px);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        /* ============================================
+           AUTH FORMS
+           ============================================ */
+        .auth-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .auth-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .auth-card h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .auth-card .subtitle {
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: var(--danger);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(26, 60, 94, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #bbb;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ============================================
+           TABS
+           ============================================ */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--gray-light);
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: transparent;
+            color: var(--gray);
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+            background: rgba(26, 60, 94, 0.05);
+        }
+
+        .tab.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================
+           APPOINTMENT CARDS
+           ============================================ */
+        .appointment-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .appointment-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .appointment-card .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            background: transparent;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .appointment-card h4 {
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .appointment-card .meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .appointment-card .meta i {
+            width: 18px;
+            color: var(--primary-light);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-confirmed {
+            background: #cce5ff;
+            color: #004085;
+        }
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-in_progress {
+            background: #d6d8db;
+            color: #383d41;
+        }
+        .status-no_show {
+            background: #f5c6cb;
+            color: #721c24;
+        }
+
+        /* ============================================
+           PRODUCT CARDS
+           ============================================ */
+        .product-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-image {
+            height: 180px;
+            background: linear-gradient(135deg, #e8f0fe, #d4e4f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--primary-light);
+        }
+
+        .product-body {
+            padding: 20px;
+        }
+
+        .product-body h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .product-body .description {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+
+        .product-body .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .product-body .stock {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .product-body .stock.in-stock {
+            color: var(--success);
+        }
+
+        .product-body .stock.low-stock {
+            color: var(--warning);
+        }
+
+        .product-body .stock.out-of-stock {
+            color: var(--danger);
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        /* ============================================
+           ALERTS / MESSAGES
+           ============================================ */
+        .alert {
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideDown 0.3s ease;
+        }
+
+        .alert i {
+            font-size: 20px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            border-radius: 40px 40px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        .footer h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--secondary);
+        }
+
+        .footer p,
+        .footer a {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            line-height: 2;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text p {
+                margin: 0 auto 24px;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .hero-image-placeholder {
+                max-width: 300px;
+                height: 200px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-actions {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .hero-text h1 {
+                font-size: 32px;
+            }
+            .hero-stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+            .tab {
+                flex: none;
+            }
+            .auth-card {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .hero {
+                padding: 40px 0 60px;
+            }
+            .hero-text h1 {
+                font-size: 26px;
+            }
+            .card {
+                padding: 16px;
+            }
+        }
+
+        /* ============================================
+           UTILITY
+           ============================================ */
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-40 { margin-bottom: 40px; }
+        .gap-12 { gap: 12px; }
+        .flex { display: flex; }
+        .flex-center { display: flex; align-items: center; justify-content: center; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .flex-wrap { flex-wrap: wrap; }
+        .hidden { display: none !important; }
+
+        .loading-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            gap: 12px;
+            color: var(--gray);
+        }
+
+        .loading-spinner i {
+            font-size: 24px;
+            animation: spin 1s linear infinite;
+            color: var(--primary);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            color: var(--gray-light);
+            margin-bottom: 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .hero-image-placeholder i {
+            font-size: 80px;
+            color: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    HEADER
+    ============================================ -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">GS<span>Center</span></div>
+            </a>
+            <div class="nav-actions">
+                <span class="user-greeting" id="userDisplay">
+                    <i class="fas fa-user-circle"></i> Guest
+                </span>
+                <button id="logoutBtn" class="btn btn-logout btn-sm hidden" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================
+    MAIN CONTENT
+    ============================================ -->
+    <main>
+        <div class="container">
+
+            <!-- Message Display -->
+            <div id="messageBox"></div>
+
+            <!-- ==========================================
+            AUTH SECTION (Login/Register)
+            ========================================== -->
+            <div id="authSection">
+                <div class="hero">
+                    <div class="container hero-content">
+                        <div class="hero-text">
+                            <h1>Welcome to <span>GS Center</span></h1>
+                            <p>Your trusted destination for Traditional Chinese Medicine, holistic wellness, and premium FOHOW products. Experience healing through ancient wisdom.</p>
+                            <div class="hero-stats">
+                                <div class="hero-stat">
+                                    <h3>500+</h3>
+                                    <p>Happy Clients</p>
+                                </div>
+                                <div class="hero-stat">
+                                    <h3>4.9</h3>
+                                    <p>★ Rating</p>
+                                </div>
+                                <div class="hero-stat">
+                                    <h3>15+</h3>
+                                    <p>Years Experience</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <div class="hero-image-placeholder">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Login -->
+                    <div class="auth-container" style="padding:0;">
+                        <div class="auth-card">
+                            <h2><i class="fas fa-sign-in-alt" style="color:var(--primary);margin-right:10px;"></i> Welcome Back</h2>
+                            <p class="subtitle">Login to manage your appointments and wellness journey.</p>
+                            <form onsubmit="handleLogin(event)">
+                                <div class="form-group">
+                                    <label>Email Address <span class="required">*</span></label>
+                                    <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password <span class="required">*</span></label>
+                                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width:100%;">
+                                    <i class="fas fa-arrow-right"></i> Login
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Register -->
+                    <div class="auth-container" style="padding:0;">
+                        <div class="auth-card">
+                            <h2><i class="fas fa-user-plus" style="color:var(--success);margin-right:10px;"></i> Create Account</h2>
+                            <p class="subtitle">Join GS Center and start your wellness journey today.</p>
+                            <form onsubmit="handleRegister(event)">
+                                <div class="form-group">
+                                    <label>Full Name <span class="required">*</span></label>
+                                    <input type="text" id="regName" placeholder="John Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address <span class="required">*</span></label>
+                                    <input type="email" id="regEmail" placeholder="you@example.com" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Password <span class="required">*</span></label>
+                                        <input type="password" id="regPassword" placeholder="Min 8 chars" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+                                        <input type="text" id="regPhone" placeholder="+1 234 567 890">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success" style="width:100%;">
+                                    <i class="fas fa-user-plus"></i> Register
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+            DASHBOARD SECTION (After Login)
+            ========================================== -->
+            <div id="dashboardSection" class="hidden">
+
+                <!-- Dashboard Welcome -->
+                <div style="background:linear-gradient(135deg,var(--primary-dark),var(--primary));padding:40px;border-radius:var(--radius);color:white;margin-bottom:32px;">
+                    <div class="flex-between flex-wrap" style="gap:16px;">
+                        <div>
+                            <h2 style="font-size:28px;font-weight:700;">
+                                <i class="fas fa-spa" style="color:var(--secondary);margin-right:12px;"></i>
+                                Welcome back, <span id="dashUserName" style="color:var(--secondary);"></span>
+                            </h2>
+                            <p style="opacity:0.8;margin-top:4px;">Manage your appointments and explore our wellness offerings.</p>
+                        </div>
+                        <div>
+                            <span style="background:rgba(255,255,255,0.1);padding:8px 16px;border-radius:20px;font-size:14px;">
+                                <i class="fas fa-calendar-check" style="color:var(--secondary);"></i>
+                                Member since <span id="dashMemberSince">today</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab('book')">
+                        <i class="fas fa-calendar-plus"></i> Book Appointment
+                    </button>
+                    <button class="tab" onclick="showTab('appointments')">
+                        <i class="fas fa-list-ul"></i> My Appointments
+                    </button>
+                    <button class="tab" onclick="showTab('products')">
+                        <i class="fas fa-shopping-bag"></i> Shop Products
+                    </button>
+                </div>
+
+                <!-- TAB 1: Book Appointment -->
+                <div id="bookTab" class="tab-content active">
+                    <div class="card" style="max-width:600px;margin:0 auto;">
+                        <h3 style="font-size:20px;color:var(--primary);margin-bottom:4px;">
+                            <i class="fas fa-calendar-plus" style="color:var(--secondary);"></i> Book an Appointment
+                        </h3>
+                        <p style="color:var(--gray);margin-bottom:20px;">Select your preferred service, date, and time.</p>
+                        <form onsubmit="handleBookAppointment(event)">
+                            <div class="form-group">
+                                <label>Select Service <span class="required">*</span></label>
+                                <select id="serviceSelect" required>
+                                    <option value="">Choose a service...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Date <span class="required">*</span></label>
+                                <input type="date" id="dateInput" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Time <span class="required">*</span></label>
+                                <select id="timeSelect" required>
+                                    <option value="">Select available time...</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width:100%;">
+                                <i class="fas fa-check-circle"></i> Book Now
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TAB 2: My Appointments -->
+                <div id="appointmentsTab" class="tab-content">
+                    <div class="flex-between flex-wrap" style="margin-bottom:16px;">
+                        <h3 style="font-size:20px;color:var(--primary);">
+                            <i class="fas fa-list-ul" style="color:var(--secondary);"></i> My Appointments
+                        </h3>
+                        <span style="font-size:14px;color:var(--gray);">
+                            <i class="fas fa-info-circle"></i> Click cancel to remove booking
+                        </span>
+                    </div>
+                    <div id="appointmentsList">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner"></i>
+                            Loading your appointments...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: Products -->
+                <div id="productsTab" class="tab-content">
+                    <h3 style="font-size:20px;color:var(--primary);margin-bottom:4px;">
+                        <i class="fas fa-shopping-bag" style="color:var(--secondary);"></i> FOHOW TCM Products
+                    </h3>
+                    <p style="color:var(--gray);margin-bottom:20px;">Premium Traditional Chinese Medicine products for your wellness.</p>
+                    <div id="productsList" class="grid-3">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner"></i>
+                            Loading products...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ============================================
+    FOOTER
+    ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo" style="margin-bottom:12px;">
+                        <div class="logo-icon" style="width:40px;height:40px;font-size:18px;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="logo-text" style="font-size:20px;">GS<span>Center</span></div>
+                    </div>
+                    <p>Experience the healing power of Traditional Chinese Medicine. Your journey to wellness starts here.</p>
+                    <div style="display:flex;gap:12px;margin-top:12px;">
+                        <a href="#" style="color:rgba(255,255,255,0.5);font-size:20px;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color:rgba(255,255,255,0.5);font-size:20px;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color:rgba(255,255,255,0.5);font-size:20px;"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <a href="#">About Us</a><br>
+                    <a href="#">Services</a><br>
+                    <a href="#">Products</a><br>
+                    <a href="#">Contact</a>
+                </div>
+                <div>
+                    <h4>Services</h4>
+                    <a href="#">TCM Consultation</a><br>
+                    <a href="#">Acupuncture</a><br>
+                    <a href="#">Herbal Medicine</a><br>
+                    <a href="#">Tui Na Massage</a>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Wellness Street</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                    <p><i class="fas fa-envelope"></i> info@gscenter.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 GS Center. All rights reserved. Made with <i class="fas fa-heart" style="color:var(--danger);"></i> for wellness.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+    JAVASCRIPT
+    ============================================ -->
+    <script>
+        const API_URL = 'http://localhost/gs-wellness/backend/api';
+        let currentUser = null;
+
+        // =============================================
+        // PAGE LOAD
+        // =============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUser = localStorage.getItem('gs_user');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    showDashboard();
+                    loadAppointments(currentUser.id);
+                } catch(e) {
+                    console.error('Error parsing user data:', e);
+                }
+            }
+            loadServices();
+            loadProducts();
+
+            document.getElementById('dateInput').addEventListener('change', function() {
+                if (this.value) loadAvailableSlots(this.value);
+            });
+        });
+
+        // =============================================
+        // AUTHENTICATION
+        // =============================================
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+
+            fetch(`${API_URL}/auth.php?action=login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    currentUser = data.user;
+                    localStorage.setItem('gs_user', JSON.stringify(currentUser));
+                    showMessage('Welcome back, ' + currentUser.full_name + '!', 'success');
+                    showDashboard();
+                    loadAppointments(currentUser.id);
+                } else {
+                    showMessage(data.error || 'Login failed', 'error');
+                }
+            })
+            .catch(error => {
+                showMessage('Error: ' + error.message, 'error');
+            });
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const full_name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const phone = document.getElementById('regPhone').value;
+
+            if (!full_name || !email || !password) {
+                showMessage('Please fill in all required fields', 'error');
+                return;
+            }
+
+            fetch(`${API_URL}/auth.php?action=register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ full_name, email, password, phone })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showMessage('Registration successful! Please login.', 'success');
+                    document.getElementById('regName').value = '';
+                    document.getElementById('regEmail').value = '';
+                    document.getElementById('regPassword').value = '';
+                    document.getElementById('regPhone').value = '';
+                } else {
+                    showMessage(data.error || 'Registration failed', 'error');
+                }
+            })
+            .catch(error => {
+                showMessage('Error: ' + error.message, 'error');
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('gs_user');
+            currentUser = null;
+            document.getElementById('authSection').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+            document.getElementById('logoutBtn').classList.add('hidden');
+            document.getElementById('userDisplay').innerHTML = '<i class="fas fa-user-circle"></i> Guest';
+            showMessage('Logged out successfully', 'info');
+        }
+
+        function showDashboard() {
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            document.getElementById('logoutBtn').classList.remove('hidden');
+            document.getElementById('userDisplay').innerHTML =
+                '<i class="fas fa-user-circle"></i> ' + currentUser.full_name;
+            document.getElementById('dashUserName').textContent = currentUser.full_name;
+            document.getElementById('dashMemberSince').textContent =
+                new Date(currentUser.created_at).toLocaleDateString('en-US', {
+                    month: 'long',
+                    year: 'numeric'
+                });
+        }
+
+        // =============================================
+        // DATA LOADING
+        // =============================================
+        function loadServices() {
+            fetch(`${API_URL}/services.php`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const select = document.getElementById('serviceSelect');
+                        select.innerHTML = '<option value="">Choose a service...</option>';
+                        data.services.forEach(service => {
+                            const option = document.createElement('option');
+                            option.value = service.id;
+                            option.textContent = `${service.name} — $${service.price} (${service.duration} min)`;
+                            select.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error loading services:', error));
+        }
+
+        function loadProducts() {
+            const container = document.getElementById('productsList');
+            container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner"></i> Loading products...</div>';
+
+            fetch(`${API_URL}/products.php`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.products.length > 0) {
+                        container.innerHTML = '';
+                        data.products.forEach(product => {
+                            const stockClass = product.stock > 10 ? 'in-stock' :
+                                               product.stock > 0 ? 'low-stock' : 'out-of-stock';
+                            const stockText = product.stock > 10 ? 'In Stock' :
+                                              product.stock > 0 ? 'Low Stock' : 'Out of Stock';
+                            const div = document.createElement('div');
+                            div.className = 'product-card';
+                            div.innerHTML = `
+                                <div class="product-image">
+                                    <i class="fas fa-flask"></i>
+                                </div>
+                                <div class="product-body">
+                                    ${product.is_featured ? '<div class="featured-badge">⭐ Featured</div>' : ''}
+                                    <h4>${product.name}</h4>
+                                    <p class="description">${product.description || 'Premium TCM product'}</p>
+                                    <div class="flex-between">
+                                        <span class="price">$${product.price}</span>
+                                        <span class="stock ${stockClass}">${stockText}</span>
+                                    </div>
+                                </div>
+                            `;
+                            container.appendChild(div);
+                        });
+                    } else {
+                        container.innerHTML = `
+                            <div class="empty-state" style="grid-column:1/-1;">
+                                <i class="fas fa-box-open"></i>
+                                <h3>No products available</h3>
+                                <p>Check back soon for new FOHOW TCM products.</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    container.innerHTML = `
+                        <div class="empty-state" style="grid-column:1/-1;">
+                            <i class="fas fa-exclamation-triangle" style="color:var(--danger);"></i>
+                            <h3>Error loading products</h3>
+                            <p>Please refresh the page or try again later.</p>
+                        </div>
+                    `;
+                });
+        }
+
+        function loadAppointments(userId) {
+            const container = document.getElementById('appointmentsList');
+            container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner"></i> Loading appointments...</div>';
+
+            fetch(`${API_URL}/appointments.php?user_id=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.appointments.length === 0) {
+                            container.innerHTML = `
+                                <div class="empty-state">
+                                    <i class="fas fa-calendar-times"></i>
+                                    <h3>No appointments yet</h3>
+                                    <p>Book your first wellness session today!</p>
+                                </div>
+                            `;
+                            return;
+                        }
+                        container.innerHTML = '';
+                        data.appointments.forEach(appt => {
+                            const div = document.createElement('div');
+                            div.className = 'appointment-card';
+                            div.innerHTML = `
+                                <div class="header">
+                                    <h4>${appt.service_name}</h4>
+                                    <span class="status-badge status-${appt.status}">${appt.status.replace('_', ' ')}</span>
+                                </div>
+                                <div class="meta">
+                                    <span><i class="fas fa-calendar-day"></i> ${appt.appointment_date}</span>
+                                    <span><i class="fas fa-clock"></i> ${appt.appointment_time}</span>
+                                    <span><i class="fas fa-tag"></i> $${appt.price}</span>
+                                </div>
+                                ${appt.status !== 'cancelled' ? `
+                                    <div style="margin-top:12px;">
+                                        <button class="btn btn-danger btn-sm" onclick="cancelAppointment(${appt.id})">
+                                            <i class="fas fa-times"></i> Cancel
+                                        </button>
+                                    </div>
+                                ` : `
+                                    <div style="margin-top:12px;">
+                                        <span style="color:var(--gray);font-size:13px;">
+                                            <i class="fas fa-ban"></i> Cancelled
+                                        </span>
+                                    </div>
+                                `}
+                            `;
+                            container.appendChild(div);
+                        });
+                    }
+                })
+                .catch(error => {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle" style="color:var(--danger);"></i>
+                            <h3>Error loading appointments</h3>
+                            <p>Please refresh the page.</p>
+                        </div>
+                    `;
+                });
+        }
+
+        function loadAvailableSlots(date) {
+            const select = document.getElementById('timeSelect');
+            select.innerHTML = '<option value="">Loading...</option>';
+
+            fetch(`${API_URL}/appointments.php?action=available&date=${date}`)
+                .then(response => response.json())
+                .then(data => {
+                    select.innerHTML = '<option value="">Select available time...</option>';
+                    if (data.success && data.slots.length > 0) {
+                        data.slots.forEach(slot => {
+                            const option = document.createElement('option');
+                            option.value = slot;
+                            option.textContent = slot;
+                            select.appendChild(option);
+                        });
+                    } else {
+                        const option = document.createElement('option');
+                        option.value = '';
+                        option.textContent = 'No slots available';
+                        select.appendChild(option);
+                    }
+                })
+                .catch(error => {
+                    select.innerHTML = '<option value="">Error loading slots</option>';
+                });
+        }
+
+        // =============================================
+        // APPOINTMENT ACTIONS
+        // =============================================
+        function handleBookAppointment(event) {
+            event.preventDefault();
+            if (!currentUser) {
+                showMessage('Please login first', 'error');
+                return;
+            }
+
+            const service_id = document.getElementById('serviceSelect').value;
+            const appointment_date = document.getElementById('dateInput').value;
+            const appointment_time = document.getElementById('timeSelect').value;
+
+            if (!service_id || !appointment_date || !appointment_time) {
+                showMessage('Please fill all fields', 'error');
+                return;
+            }
+
+            fetch(`${API_URL}/appointments.php`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: currentUser.id,
+                    service_id: service_id,
+                    appointment_date: appointment_date,
+                    appointment_time: appointment_time
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showMessage('✅ Appointment booked successfully!', 'success');
+                    loadAppointments(currentUser.id);
+                    document.getElementById('serviceSelect').value = '';
+                    document.getElementById('dateInput').value = '';
+                    document.getElementById('timeSelect').innerHTML = '<option value="">Select available time...</option>';
+                } else {
+                    showMessage(data.error || 'Booking failed', 'error');
+                }
+            })
+            .catch(error => {
+                showMessage('Error: ' + error.message, 'error');
+            });
+        }
+
+        function cancelAppointment(appointmentId) {
+            if (!confirm('Are you sure you want to cancel this appointment?')) return;
+
+            fetch(`${API_URL}/appointments.php?action=cancel`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ appointment_id: appointmentId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showMessage('Appointment cancelled', 'success');
+                    loadAppointments(currentUser.id);
+                } else {
+                    showMessage(data.error || 'Cancellation failed', 'error');
+                }
+            })
+            .catch(error => {
+                showMessage('Error: ' + error.message, 'error');
+            });
+        }
+
+        // =============================================
+        // UI HELPERS
+        // =============================================
+        function showMessage(message, type) {
+            const box = document.getElementById('messageBox');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                info: 'fa-info-circle'
+            };
+            box.className = `alert alert-${type}`;
+            box.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i> ${message}`;
+            setTimeout(() => {
+                box.className = '';
+                box.innerHTML = '';
+            }, 5000);
+        }
+
+        function showTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+
+            const tabMap = {
+                'book': 'bookTab',
+                'appointments': 'appointmentsTab',
+                'products': 'productsTab'
+            };
+
+            const content = document.getElementById(tabMap[tab]);
+            if (content) content.classList.add('active');
+
+            const buttons = document.querySelectorAll('.tab');
+            const index = ['book', 'appointments', 'products'].indexOf(tab);
+            if (buttons[index]) buttons[index].classList.add('active');
+
+            if (tab === 'appointments' && currentUser) loadAppointments(currentUser.id);
+            if (tab === 'products') loadProducts();
+        }
+
+        // =============================================
+        // MAKE FUNCTIONS GLOBAL
+        // =============================================
+        window.showTab = showTab;
+        window.logout = logout;
+        window.handleLogin = handleLogin;
+        window.handleRegister = handleRegister;
+        window.handleBookAppointment = handleBookAppointment;
+        window.cancelAppointment = cancelAppointment;
+        window.showMessage = showMessage;
+        window.loadAppointments = loadAppointments;
+        window.loadProducts = loadProducts;
+        window.loadServices = loadServices;
+        window.loadAvailableSlots = loadAvailableSlots;
+    </script>
+
+</body>
+</html>

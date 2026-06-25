@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test GS API</title>
+</head>
+<body>
+    <h2>Test Login</h2>
+    <button onclick="testLogin()">Login</button>
+    <pre id="result"></pre>
+
+    <script>
+    async function testLogin() {
+        const response = await fetch('http://localhost/gs-wellness/backend/api/auth.php?action=login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email: 'admin@gs.com',
+                password: 'admin123'
+            })
+        });
+        const data = await response.json();
+        document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    }
+    </script>
+</body>
+</html>
