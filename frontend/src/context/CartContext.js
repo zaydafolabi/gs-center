@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 const API_URL = 'http://localhost/gs-wellness/backend/api';
@@ -14,23 +14,19 @@ export const CartProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userId, setUserId] = useState(null);
 
-    // Check login status
-    useEffect(() => {
-    const savedUser = localStorage.getItem('gs_user');
-    if (savedUser) {
-        try {
-            const user = JSON.parse(savedUser);
-            setIsLoggedIn(true);
-            setUserId(user.id);
-            loadUserCart(user.id);
-        } catch (e) {
-            console.error('Error parsing user:', e);
-        }
-    }
-    }, [loadUserCart]);  
+    // Update cart summary
+    const updateCartSummary = useCallback((items) => {
+        const count = items.reduce((sum, item) => sum + item.quantity, 0);
+        const total = items.reduce((sum, item) => {
+            const price = typeof item.price === 'string' ? parseFloat(item.price) : item.price;
+            return sum + (price * item.quantity);
+        }, 0);
+        setCartCount(count);
+        setCartTotal(total);
+    }, []);
 
     // Load user's cart from database
-    const loadUserCart = async (userId) => {
+    const loadUserCart = useCallback(async (userId) => {
         try {
             const response = await axios.get(`${API_URL}/cart.php?user_id=${userId}`);
             if (response.data.success) {
@@ -41,10 +37,10 @@ export const CartProvider = ({ children }) => {
         } catch (error) {
             console.error('Error loading cart:', error);
         }
-    };
+    }, [updateCartSummary]);
 
     // Save cart to database
-    const saveCartToDatabase = async (items) => {
+    const saveCartToDatabase = useCallback(async (items) => {
         if (!userId) return;
         try {
             await axios.post(`${API_URL}/cart.php`, {
@@ -54,41 +50,41 @@ export const CartProvider = ({ children }) => {
         } catch (error) {
             console.error('Error saving cart:', error);
         }
-    };
+    }, [userId]);
 
-    // Update cart summary
-    const updateCartSummary = (items) => {
-        const count = items.reduce((sum, item) => sum + item.quantity, 0);
-        const total = items.reduce((sum, item) => {
-            const price = typeof item.price === 'string' ? parseFloat(item.price) : item.price;
-            return sum + (price * item.quantity);
-        }, 0);
-        setCartCount(count);
-        setCartTotal(total);
-    };
+    // Check login status
+    useEffect(() => {
+        const savedUser = localStorage.getItem('gs_user');
+        if (savedUser) {
+            try {
+                const user = JSON.parse(savedUser);
+                setIsLoggedIn(true);
+                setUserId(user.id);
+                loadUserCart(user.id);
+            } catch (e) {
+                console.error('Error parsing user:', e);
+            }
+        }
+    }, [loadUserCart]);
 
-    // Add item to cart (requires login)
-    const addToCart = async (product) => {
+    // Add item to cart
+    const addToCart = useCallback(async (product) => {
         if (!isLoggedIn) {
             alert('Please login first to add items to your cart!');
             window.location.href = '/login';
             return;
         }
 
-        // Ensure price is a number
         const price = typeof product.price === 'string' ? parseFloat(product.price) : product.price;
         
         setCartItems(prevItems => {
-            // Check if product already in cart
             const existingIndex = prevItems.findIndex(item => item.id === product.id);
             let updatedItems;
             
             if (existingIndex !== -1) {
-                // Product exists, increase quantity
                 updatedItems = [...prevItems];
                 updatedItems[existingIndex].quantity += 1;
             } else {
-                // Product doesn't exist, add new
                 updatedItems = [...prevItems, { 
                     id: product.id,
                     name: product.name,
@@ -98,25 +94,24 @@ export const CartProvider = ({ children }) => {
                 }];
             }
             
-            // Save to database
             saveCartToDatabase(updatedItems);
             updateCartSummary(updatedItems);
             return updatedItems;
         });
-    };
+    }, [isLoggedIn, saveCartToDatabase, updateCartSummary]);
 
     // Remove item from cart
-    const removeFromCart = (index) => {
+    const removeFromCart = useCallback((index) => {
         setCartItems(prev => {
             const updated = prev.filter((_, i) => i !== index);
             saveCartToDatabase(updated);
             updateCartSummary(updated);
             return updated;
         });
-    };
+    }, [saveCartToDatabase, updateCartSummary]);
 
     // Update quantity
-    const updateQuantity = (index, newQuantity) => {
+    const updateQuantity = useCallback((index, newQuantity) => {
         if (newQuantity <= 0) {
             removeFromCart(index);
             return;
@@ -128,17 +123,17 @@ export const CartProvider = ({ children }) => {
             updateCartSummary(updated);
             return updated;
         });
-    };
+    }, [removeFromCart, saveCartToDatabase, updateCartSummary]);
 
     // Clear cart
-    const clearCart = () => {
+    const clearCart = useCallback(() => {
         setCartItems([]);
         updateCartSummary([]);
         saveCartToDatabase([]);
-    };
+    }, [saveCartToDatabase, updateCartSummary]);
 
     // Checkout function
-    const checkout = async () => {
+    const checkout = useCallback(async () => {
         if (!isLoggedIn) {
             alert('Please login first to checkout!');
             window.location.href = '/login';
@@ -168,7 +163,7 @@ export const CartProvider = ({ children }) => {
             alert('Error during checkout: ' + error.message);
             console.error('Checkout error:', error);
         }
-    };
+    }, [isLoggedIn, cartItems, cartTotal, userId, clearCart]);
 
     return (
         <CartContext.Provider value={{
