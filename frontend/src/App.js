@@ -7,7 +7,9 @@ import ProductCard from './components/ProductCard';
 import Cart from './components/Cart';
 import CartIcon from './components/CartIcon';
 import './styles.css';
-const API_URL = process.env.REACT_APP_API_URL || 'https://gs-center-backend.onrender.com/api';
+import ServicesPage from './components/ServicesPage';
+import ProductsPage from './components/ProductsPage';
+const API_URL = 'https://gswellcenter.42web.io/backend/api';
 // =============================================
 // HEADER COMPONENT
 // =============================================
@@ -247,87 +249,6 @@ const AboutPage = () => (
         </div>
     </div>
 );
-
-// =============================================
-// SERVICES PAGE
-// =============================================
-const ServicesPage = ({ services, user, onBook }) => (
-    <div>
-        <h1 className="section-title">Our Services</h1>
-        <p className="section-subtitle">Professional Traditional Chinese Medicine treatments for your wellness journey.</p>
-        <div className="grid-3">
-            {services.map(service => (
-                <div key={service.id} className="card">
-                    <div style={{ fontSize: 40, color: 'var(--secondary)', marginBottom: 12 }}>
-                        <i className="fas fa-spa"></i>
-                    </div>
-                    <h3>{service.name}</h3>
-                    <p style={{ color: 'var(--gray)', marginBottom: 8 }}>{service.description}</p>
-                    <p style={{ marginBottom: 8 }}>
-                        <span style={{ fontWeight: 'bold', color: 'var(--primary)' }}>${service.price}</span>
-                        <span style={{ color: 'var(--gray)', fontSize: 14, marginLeft: 8 }}>({service.duration} min)</span>
-                    </p>
-                    {user ? (
-                        <button className="btn btn-primary btn-sm" onClick={() => onBook(service.id)}>
-                            <i className="fas fa-calendar-plus"></i> Book Now
-                        </button>
-                    ) : (
-                        <Link to="/login" className="btn btn-secondary btn-sm">
-                            <i className="fas fa-sign-in-alt"></i> Login to Book
-                        </Link>
-                    )}
-                </div>
-            ))}
-        </div>
-    </div>
-);
-
-// =============================================
-// PRODUCTS PAGE
-// =============================================
-const ProductsPage = ({ products }) => {
-    const [selectedCategory, setSelectedCategory] = useState('all');
-    const categories = ['all', ...new Set(products.map(p => p.category).filter(Boolean))];
-    const filteredProducts = selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory);
-
-    return (
-        <div>
-            <h1 className="section-title">FOHOW TCM Products</h1>
-            <p className="section-subtitle">Premium Traditional Chinese Medicine products for your health and wellness.</p>
-            
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 16, marginBottom: 24 }}>
-                {categories.map(cat => (
-                    <button 
-                        key={cat} 
-                        className={`category-filter ${selectedCategory === cat ? 'active' : ''}`}
-                        onClick={() => setSelectedCategory(cat)}
-                        style={{
-                            padding: '8px 20px',
-                            border: selectedCategory === cat ? '2px solid var(--primary)' : '2px solid var(--gray-light)',
-                            borderRadius: 'var(--radius-sm)',
-                            background: selectedCategory === cat ? 'var(--primary)' : 'transparent',
-                            color: selectedCategory === cat ? 'white' : '#000000',
-                            cursor: 'pointer',
-                            fontWeight: '600',
-                            fontSize: '14px',
-                            transition: 'var(--transition)',
-                            fontFamily: 'Inter, sans-serif'
-                        }}
-                    >
-                        {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                    </button>
-                ))}
-            </div>
-            
-            <div className="grid-3">
-                {filteredProducts.map(product => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
-            </div>
-        </div>
-    );
-};
-
 // =============================================
 // CONTACT PAGE
 // =============================================
@@ -836,6 +757,8 @@ function App() {
                         <Route path="/cart" element={<Cart />} />
                         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
                         <Route path="/register" element={<RegisterPage onRegister={handleRegister} />} />
+                        <Route path="/services" element={<ServicesPage />} />
+                        <Route path="/products" element={<ProductsPage />} />
                         <Route path="/dashboard" element={
                             user ? (
                                 <DashboardPage 
