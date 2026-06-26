@@ -17,11 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // =============================================
 
 // Option 1: Use environment variables (recommended for Render)
-$host = getenv('DB_HOST') ?: 'mysql-aiven.g.aivencloud.com';
-$port = getenv('DB_PORT') ?: '12345';
+$host = getenv('DB_HOST') ?: 'mysql-32fa9876-gs-wellness.h.aivencloud.com';
+$port = getenv('DB_PORT') ?: '23288';
 $dbname = getenv('DB_NAME') ?: 'defaultdb';
 $username = getenv('DB_USER') ?: 'avnadmin';
-$password = getenv('DB_PASSWORD') ?: 'YOUR_PASSWORD_HERE';
+$password = getenv('DB_PASSWORD') ?: '';
 
 // Or Option 2: Hardcode credentials (if environment variables not working)
 // $host = 'mysql-aiven.g.aivencloud.com';
