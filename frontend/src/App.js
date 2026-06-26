@@ -7,8 +7,7 @@ import ProductCard from './components/ProductCard';
 import Cart from './components/Cart';
 import CartIcon from './components/CartIcon';
 import './styles.css';
-
-const API_URL = 'https://gswellcenter.42web.io/backend/api';
+const API_URL = process.env.REACT_APP_API_URL || 'https://gs-center-backend.onrender.com/api';
 // =============================================
 // HEADER COMPONENT
 // =============================================
